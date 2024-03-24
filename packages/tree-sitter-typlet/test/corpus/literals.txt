@@ -1,0 +1,84 @@
+============================================
+Integer
+============================================
+
+01234567890
+01_234_567_890
+0b10101010
+0b1010_1010
+0o01234567
+0o01_234_567
+0xABCDEF
+0xABC_DEF
+
+---
+
+(program
+  (expression_statement (integer))
+  (expression_statement (integer))
+  (expression_statement (integer))
+  (expression_statement (integer))
+  (expression_statement (integer))
+  (expression_statement (integer))
+  (expression_statement (integer))
+  (expression_statement (integer)))
+
+============================================
+Float
+============================================
+
+3.141592
+1e-10
+1e+10
+1e10
+
+---
+
+(program
+  (expression_statement (float))
+  (expression_statement (float))
+  (expression_statement (float))
+  (expression_statement (float)))
+
+============================================
+Unit Values
+============================================
+
+1.0px
+3.14_15_92em
+1_0%
+
+---
+
+(program
+  (expression_statement (unit_absolute_length))
+  (expression_statement (unit_relative_length))
+  (expression_statement (unit_relative_length)))
+
+============================================
+Boolean
+============================================
+
+true
+false
+
+---
+
+(program
+  (expression_statement (boolean))
+  (expression_statement (boolean)))
+
+============================================
+String
+============================================
+
+""
+"Hello, world"
+"\\\r\t\n\"\x47\u{000A}"
+
+---
+
+(program
+  (expression_statement (string))
+  (expression_statement (string))
+  (expression_statement (string)))

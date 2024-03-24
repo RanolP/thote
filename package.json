@@ -1,0 +1,8 @@
+{
+  "name": "thote",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "dprint": "^0.45.0"
+  }
+}

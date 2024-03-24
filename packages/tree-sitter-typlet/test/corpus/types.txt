@@ -1,0 +1,51 @@
+============================================
+Unit Type
+============================================
+
+type Singleton
+
+---
+
+(program
+  (decl_unit_type (identifier)))
+
+============================================
+Tuple Type
+============================================
+
+type Pos2d(i32, i32)
+type Pos3d(i32, i32, i32)
+
+---
+
+(program
+  (decl_tuple_type
+    (identifier)
+    (type (identifier))
+    (type (identifier))
+  )
+  (decl_tuple_type
+    (identifier)
+    (type (identifier))
+    (type (identifier))
+    (type (identifier))
+  ))
+
+============================================
+Struct Type
+============================================
+
+type Range {
+    from: i32,
+    to: i32,
+}
+
+---
+
+(program
+  (decl_struct_type
+    (identifier)
+    (struct_field (identifier) (type (identifier)))
+    (struct_field (identifier) (type (identifier)))
+  ))
+

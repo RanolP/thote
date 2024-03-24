@@ -1,0 +1,10 @@
+{
+  "[javascript]": {
+    "editor.defaultFormatter": "dprint.dprint"
+  },
+  "files.exclude": {
+    "**/node_modules": true,
+    "packages/tree-sitter-typlet/build": true,
+    "packages/tree-sitter-typlet/tree-sitter-typlet.wasm": true
+  }
+}

@@ -1,0 +1,26 @@
+============================================
+Binary Operation
+============================================
+
+1 + 2
+"hi" + "str" * n
+2 * x <= k
+
+---
+
+(program
+  (expression_statement
+    (binary_operation (integer) (integer))
+  )
+  (expression_statement
+    (binary_operation
+      (string)
+      (binary_operation (string) (name (identifier)))
+    )
+  )
+  (expression_statement
+    (binary_operation
+      (binary_operation (integer) (name (identifier)))
+      (name (identifier))
+    )
+  ))
