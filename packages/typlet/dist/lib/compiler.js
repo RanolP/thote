@@ -2,7 +2,7 @@ import Parser from "tree-sitter";
 import TreeSitterTyplet from "tree-sitter-typlet";
 import { SourceFile } from "./source-file.js";
 import * as Check from "./visitors/check/index.js";
-import { Scope } from "./symbol-table.js";
+import { Scope } from "./scope.js";
 import * as Codegen from "./visitors/codegen/index.js";
 import path from "node:path";
 import { fs } from "zx";
@@ -51,7 +51,7 @@ export class TypletCompiler {
 
 	async compile() {
 		for (const file of this.#sources) {
-			const env = new Env(file, new Scope());
+			const env = new Env(file, Scope.make({ global: null, parent: null }));
 			const ast = this.#parser.parse(file.content);
 			try {
 				Check.visitRootNode(env, ast.rootNode);

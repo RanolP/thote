@@ -1,0 +1,6 @@
+import "typlet-std": { JSOption }
+
+export type Scope {
+    global: JSOption<Scope>,
+    parent: JSOption<Scope>,
+}

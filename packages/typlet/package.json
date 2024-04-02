@@ -5,7 +5,7 @@
   "type": "module",
   "bin": "./dist/main.js",
   "scripts": {
-    "build": "node ./dist/main.js"
+    "build": "cp -r dist _dist && node ./dist/main.js && node ./_dist/main.js && (rm -rf dist && mv _dist dist) || rm -rf _dist"
   },
   "dependencies": {
     "dedent": "^1.5.1",
@@ -15,6 +15,7 @@
     "zx": "^7.2.3"
   },
   "devDependencies": {
-    "@types/node": "^20.11.30"
+    "@types/node": "^20.11.30",
+    "typlet-std": "workspace:^"
   }
 }

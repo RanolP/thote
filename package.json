@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build:lang": "pnpm -F=tree-sitter-typlet prebuildify && pnpm -F=tree-sitter-typlet build && pnpm -F=tree-sitter-typlet test && pnpm -F=typlet build",
+    "build:lang": "pnpm -F=tree-sitter-typlet build && pnpm -F=tree-sitter-typlet test && pnpm -F=typlet build",
     "test:lang": "pnpm -F=tree-sitter-typlet build && pnpm -F=tree-sitter-typlet test",
     "build": "pnpm -F=seeshat build"
   },

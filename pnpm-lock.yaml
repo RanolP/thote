@@ -64,6 +64,11 @@ importers:
       '@types/node':
         specifier: ^20.11.30
         version: 20.11.30
+      typlet-std:
+        specifier: workspace:^
+        version: link:../typlet-std
+
+  packages/typlet-std: {}
 
   packages/web:
     dependencies:
