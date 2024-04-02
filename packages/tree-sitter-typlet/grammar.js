@@ -21,12 +21,16 @@ module.exports = grammar({
 
 		statement: ($) =>
 			choice(
+				$.escape_hatch,
 				$.import_statement,
 				$.export_statement,
 				$.declaration,
 				$.binding_statement,
 				$.expression_statement,
 			),
+		escape_hatch: ($) =>
+			seq("__ESCAPE_JS```", field("source", $.escape_hatch_source), "```"),
+		escape_hatch_source: ($) => /[^`]*/,
 
 		import_statement: ($) =>
 			seq(
@@ -54,9 +58,9 @@ module.exports = grammar({
 		binding_statement: ($) =>
 			seq(
 				field("kind", choice("let", "mut")),
-				$.identifier,
-				optional(seq(":", $.type)),
-				optional(seq("=", $.expression)),
+				field("name", $.identifier),
+				optional(seq(":", field("type", $.type))),
+				optional(seq("=", field("value", $.expression))),
 			),
 
 		declaration: ($) =>

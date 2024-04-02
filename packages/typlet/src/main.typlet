@@ -1,5 +1,17 @@
+#!/usr/bin/env node
 import "zx": { fs, glob }
 import "./lib/source-file.typlet": { SourceFile }
 import "./lib/compiler.typlet": { TypletCompiler }
 
-mut config = 4
+__ESCAPE_JS```
+let config = {};
+try {
+	config = await fs.readJSON("./typlet.config.json");
+} catch {}
+const compiler = new TypletCompiler(config);
+const sources = await glob("src/**/*.typlet").then((sources) =>
+	Promise.all(sources.map(SourceFile.of)),
+);
+compiler.addSource(...sources);
+compiler.compile();
+```

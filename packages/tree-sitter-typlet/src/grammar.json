@@ -35,6 +35,10 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "escape_hatch"
+        },
+        {
+          "type": "SYMBOL",
           "name": "import_statement"
         },
         {
@@ -54,6 +58,31 @@
           "name": "expression_statement"
         }
       ]
+    },
+    "escape_hatch": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "__ESCAPE_JS```"
+        },
+        {
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "escape_hatch_source"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "```"
+        }
+      ]
+    },
+    "escape_hatch_source": {
+      "type": "PATTERN",
+      "value": "[^`]*"
     },
     "import_statement": {
       "type": "SEQ",
@@ -240,8 +269,12 @@
           }
         },
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
         },
         {
           "type": "CHOICE",
@@ -254,8 +287,12 @@
                   "value": ":"
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "type"
+                  "type": "FIELD",
+                  "name": "type",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "type"
+                  }
                 }
               ]
             },
@@ -275,8 +312,12 @@
                   "value": "="
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "expression"
+                  "type": "FIELD",
+                  "name": "value",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "expression"
+                  }
                 }
               ]
             },

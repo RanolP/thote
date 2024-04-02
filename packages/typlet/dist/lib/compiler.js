@@ -79,9 +79,10 @@ export class TypletCompiler {
 						`  ${pc.underline(pc.red("# We broke the compiler!"))}`,
 					);
 					console.error(
-						`  ${pc.gray("-")} Please report the Internal Compiler Error`,
+						`  ${pc.gray(
+							"-",
+						)} Please report the Internal Compiler Error on the GitHub`,
 					);
-					console.error(`    on the GitHub`);
 					console.error();
 					console.error(e);
 					process.exit(1);

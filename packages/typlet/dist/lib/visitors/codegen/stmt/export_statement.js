@@ -1,8 +1,8 @@
-import { Unreachable } from "../effects.js";
-import { visitDeclaration } from "./decl/index.js";
+import { Unreachable } from "../../effects.js";
+import { visitDeclaration } from "../decl/index.js";
 
 /**
- * @type {import("../types.js").CodegenVisitor}
+ * @type {import("../../types.js").CodegenVisitor}
  */
 export function visitExportStatement(env, node) {
 	const declarationNode = node.childForFieldName("declaration");

@@ -144,53 +144,65 @@
             "named": false
           }
         ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "binary_operation",
+            "named": true
+          },
+          {
+            "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "integer",
+            "named": true
+          },
+          {
+            "type": "name",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "unit_absolute_length",
+            "named": true
+          },
+          {
+            "type": "unit_relative_length",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "binary_operation",
-          "named": true
-        },
-        {
-          "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "float",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "integer",
-          "named": true
-        },
-        {
-          "type": "name",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "type",
-          "named": true
-        },
-        {
-          "type": "unit_absolute_length",
-          "named": true
-        },
-        {
-          "type": "unit_relative_length",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -301,6 +313,22 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "escape_hatch",
+    "named": true,
+    "fields": {
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "escape_hatch_source",
             "named": true
           }
         ]
@@ -500,6 +528,10 @@
           "named": true
         },
         {
+          "type": "escape_hatch",
+          "named": true
+        },
+        {
           "type": "export_statement",
           "named": true
         },
@@ -670,6 +702,14 @@
     "named": false
   },
   {
+    "type": "__ESCAPE_JS```",
+    "named": false
+  },
+  {
+    "type": "```",
+    "named": false
+  },
+  {
     "type": "as",
     "named": false
   },
@@ -680,6 +720,10 @@
   {
     "type": "effect",
     "named": false
+  },
+  {
+    "type": "escape_hatch_source",
+    "named": true
   },
   {
     "type": "export",

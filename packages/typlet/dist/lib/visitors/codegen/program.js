@@ -1,5 +1,4 @@
-import { NotImplemented } from "../effects.js";
-import { visitStatement } from "./statement.js";
+import { visitStatement } from "./stmt/index.js";
 
 /**
  * @type {import('../types.js').CodegenVisitor}
