@@ -128,6 +128,98 @@
     }
   },
   {
+    "type": "binding_statement",
+    "named": true,
+    "fields": {
+      "kind": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "let",
+            "named": false
+          },
+          {
+            "type": "mut",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_operation",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "integer",
+          "named": true
+        },
+        {
+          "type": "name",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "unit_absolute_length",
+          "named": true
+        },
+        {
+          "type": "unit_relative_length",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "decl_effect",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type_params": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_parameters",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "decl_struct_type",
     "named": true,
     "fields": {
@@ -147,6 +239,16 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type_params": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_parameters",
             "named": true
           }
         ]
@@ -173,6 +275,16 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type_params": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_parameters",
             "named": true
           }
         ]
@@ -203,6 +315,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "decl_effect",
+            "named": true
+          },
           {
             "type": "decl_struct_type",
             "named": true
@@ -263,6 +379,84 @@
     }
   },
   {
+    "type": "import_part",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "original": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "import_part_list",
+    "named": true,
+    "fields": {
+      "list": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "import_part",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "import_statement",
+    "named": true,
+    "fields": {
+      "part": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "import_part_list",
+            "named": true
+          }
+        ]
+      },
+      "path": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "whole": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "name",
     "named": true,
     "fields": {},
@@ -286,6 +480,14 @@
       "required": false,
       "types": [
         {
+          "type": "binding_statement",
+          "named": true
+        },
+        {
+          "type": "decl_effect",
+          "named": true
+        },
+        {
           "type": "decl_struct_type",
           "named": true
         },
@@ -303,6 +505,10 @@
         },
         {
           "type": "expression_statement",
+          "named": true
+        },
+        {
+          "type": "import_statement",
           "named": true
         },
         {
@@ -343,14 +549,64 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "identifier",
           "named": true
+        },
+        {
+          "type": "type_parameters",
+          "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "type_constraint",
+    "named": true,
+    "fields": {
+      "constraint": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "type_parameters",
+    "named": true,
+    "fields": {
+      "list": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          },
+          {
+            "type": "type_constraint",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -398,6 +654,10 @@
     "named": false
   },
   {
+    "type": "=",
+    "named": false
+  },
+  {
     "type": "==",
     "named": false
   },
@@ -410,8 +670,16 @@
     "named": false
   },
   {
+    "type": "as",
+    "named": false
+  },
+  {
     "type": "boolean",
     "named": true
+  },
+  {
+    "type": "effect",
+    "named": false
   },
   {
     "type": "export",
@@ -426,8 +694,20 @@
     "named": true
   },
   {
+    "type": "import",
+    "named": false
+  },
+  {
     "type": "integer",
     "named": true
+  },
+  {
+    "type": "let",
+    "named": false
+  },
+  {
+    "type": "mut",
+    "named": false
   },
   {
     "type": "shebang",

@@ -20,16 +20,58 @@ module.exports = grammar({
 		shebang: ($) => /#!.*/,
 
 		statement: ($) =>
-			choice($.expression_statement, $.export_statement, $.declaration),
+			choice(
+				$.import_statement,
+				$.export_statement,
+				$.declaration,
+				$.binding_statement,
+				$.expression_statement,
+			),
 
+		import_statement: ($) =>
+			seq(
+				"import",
+				field("path", $.string),
+				choice(
+					seq("as", field("whole", $.identifier)),
+					seq(":", field("part", $.import_part_list)),
+				),
+			),
+		import_part_list: ($) =>
+			seq(
+				"{",
+				field("list", $.import_part),
+				repeat(seq(",", field("list", $.import_part))),
+				optional(","),
+				"}",
+			),
+		import_part: ($) =>
+			seq(
+				field("original", $.identifier),
+				optional(seq("as", field("alias", $.identifier))),
+			),
 		export_statement: ($) => seq("export", field("declaration", $.declaration)),
+		binding_statement: ($) =>
+			seq(
+				field("kind", choice("let", "mut")),
+				$.identifier,
+				optional(seq(":", $.type)),
+				optional(seq("=", $.expression)),
+			),
+
 		declaration: ($) =>
-			choice($.decl_unit_type, $.decl_tuple_type, $.decl_struct_type),
+			choice(
+				$.decl_unit_type,
+				$.decl_tuple_type,
+				$.decl_struct_type,
+				$.decl_effect,
+			),
 		decl_unit_type: ($) => seq("type", field("name", $.identifier)),
 		decl_tuple_type: ($) =>
 			seq(
 				"type",
 				field("name", $.identifier),
+				optional(field("type_params", $.type_parameters)),
 				"(",
 				seq(
 					field("fields", $.type),
@@ -42,6 +84,7 @@ module.exports = grammar({
 			seq(
 				"type",
 				field("name", $.identifier),
+				optional(field("type_params", $.type_parameters)),
 				"{",
 				seq(
 					field("fields", $.struct_field),
@@ -52,6 +95,16 @@ module.exports = grammar({
 			),
 		struct_field: ($) =>
 			seq(field("name", $.identifier), ":", field("type", $.type)),
+		decl_effect: ($) =>
+			seq(
+				"effect",
+				field("name", $.identifier),
+				optional(field("type_params", $.type_parameters)),
+				"{",
+				"}",
+			),
+
+		// Expressions
 
 		expression_statement: ($) => $.expression,
 		expression: ($) =>
@@ -67,9 +120,7 @@ module.exports = grammar({
 			),
 
 		binary_operation: ($) => {
-			/**
-			 * @satisfies {Array<[string[]] | [string[], 'right']>}
-			 */
+			/** @satisfies {Array<[string[]] | [string[], 'right']>} */
 			const operators = [
 				[["==", "!=", "<", "<=", ">", ">="]],
 				[["+", "-"]],
@@ -126,9 +177,13 @@ module.exports = grammar({
 
 		name: ($) => $.identifier,
 
-		type: ($) => $.identifier,
+		// Fragments
 
-		_underscore: ($) => token("_"),
+		type: ($) => seq($.identifier, optional($.type_parameters)),
+		type_parameters: ($) =>
+			seq("<", field("list", choice($.name, $.type_constraint)), ">"),
+		type_constraint: ($) =>
+			choice(seq(field("name", $.name), ":", field("constraint", $.type))),
 		identifier: ($) => token(/[\p{ID_Start}][\p{ID_Continue}]*/),
 		_word: ($) => token(/[a-zA-Z]+|_/),
 	},

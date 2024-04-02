@@ -6,6 +6,9 @@ import { Scope } from "./symbol-table.js";
 import * as Codegen from "./visitors/codegen/index.js";
 import path from "node:path";
 import { fs } from "zx";
+import { Env } from "./visitors/env.js";
+import { Unreachable } from "./visitors/effects.js";
+import pc from "picocolors";
 
 /**
  * @typedef {{
@@ -47,8 +50,8 @@ export class TypletCompiler {
 	}
 
 	async compile() {
-		const env = new Scope();
 		for (const file of this.#sources) {
+			const env = new Env(file, new Scope());
 			const ast = this.#parser.parse(file.content);
 			try {
 				Check.visitRootNode(env, ast.rootNode);
@@ -59,13 +62,35 @@ export class TypletCompiler {
 				);
 				const { dir, name } = path.parse(targetPath);
 				console.log(
-					`Compiled ${file.path} into ${path.join(dir, `${name}.{dts,js}`)}`,
+					`${pc.bgGreen(pc.bold(pc.black(" Compiled ")))} ${pc.underline(
+						file.path,
+					)} => ${path.join(
+						dir,
+						`${name}.{${pc.blue("dts")},${pc.yellow("js")}}`,
+					)}`,
 				);
 				await fs.mkdirs(dir);
 				await fs.writeFile(path.join(dir, `${name}.d.ts`), generated.dts ?? "");
 				await fs.writeFile(path.join(dir, `${name}.js`), generated.js ?? "");
 			} catch (e) {
-				console.error(`Failed to compile ${file.path}: ${e}`);
+				if (e instanceof Unreachable) {
+					console.error();
+					console.error(
+						`  ${pc.underline(pc.red("# We broke the compiler!"))}`,
+					);
+					console.error(
+						`  ${pc.gray("-")} Please report the Internal Compiler Error`,
+					);
+					console.error(`    on the GitHub`);
+					console.error();
+					console.error(e);
+					process.exit(1);
+				}
+				console.error(
+					`${pc.bgRed("  Failed  ")} ${pc.underline(file.path)}: ${
+						e instanceof Error ? e.message : e
+					}`,
+				);
 			}
 		}
 	}

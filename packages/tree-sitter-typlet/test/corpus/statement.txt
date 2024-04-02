@@ -1,0 +1,41 @@
+============================================
+Import
+============================================
+
+import "node:fs" as fs
+import "./file.typlet": { A }
+import "./file.typlet": { A, }
+import "./file.typlet": { A, B, }
+import "./file.typlet": { A, B, C }
+
+---
+
+(program
+  (import_statement (string) (identifier))
+  (import_statement
+    (string)
+    (import_part_list
+      (import_part (identifier))
+    )
+  )
+  (import_statement
+    (string)
+    (import_part_list
+      (import_part (identifier))
+    )
+  )
+  (import_statement
+    (string)
+    (import_part_list
+      (import_part (identifier))
+      (import_part (identifier))
+    )
+  )
+  (import_statement
+    (string)
+    (import_part_list
+      (import_part (identifier))
+      (import_part (identifier))
+      (import_part (identifier))
+    )
+  ))

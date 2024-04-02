@@ -1,0 +1,10 @@
+import "./position.typlet": { Selection }
+import "node:fs" as fs
+
+export effect EditorNode<T> {}
+
+export type Editor<T: EditorNode> {
+    selection: Selection,
+    node: OptionM<T>,
+}
+

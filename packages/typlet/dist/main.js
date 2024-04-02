@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import Parser from "tree-sitter";
 import { fs, glob } from "zx";
 import { SourceFile } from "./lib/source-file.js";
 import { TypletCompiler } from "./lib/compiler.js";

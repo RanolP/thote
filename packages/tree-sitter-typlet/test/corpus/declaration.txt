@@ -1,0 +1,59 @@
+============================================
+Effect
+============================================
+
+effect Option {}
+effect Result<E> {}
+
+---
+
+(program
+  (decl_effect (identifier))
+  (decl_effect
+    (identifier)
+    (type_parameters (name (identifier)))
+  ))
+
+============================================
+Struct Type
+============================================
+
+type Pos2d { x: i32, y: i32 }
+type Spanned<T> { inner: T, span: Span }
+
+---
+
+(program
+  (decl_struct_type
+    (identifier)
+    (struct_field (identifier) (type (identifier)))
+    (struct_field (identifier) (type (identifier)))
+  )
+  (decl_struct_type
+    (identifier)
+    (type_parameters (name (identifier)))
+    (struct_field (identifier) (type (identifier)))
+    (struct_field (identifier) (type (identifier)))
+  ))
+
+============================================
+Tuple Type
+============================================
+
+type Pos2d(i32, i32)
+type Spanned<T>(T, Span)
+
+---
+
+(program
+  (decl_tuple_type
+    (identifier)
+    (type (identifier))
+    (type (identifier))
+  )
+  (decl_tuple_type
+    (identifier)
+    (type_parameters (name (identifier)))
+    (type (identifier))
+    (type (identifier))
+  ))

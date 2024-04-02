@@ -3,9 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "bin": "./src/main.js",
+  "bin": "./dist/main.js",
+  "scripts": {
+    "build": "node ./dist/main.js"
+  },
   "dependencies": {
     "dedent": "^1.5.1",
+    "picocolors": "^1.0.0",
     "tree-sitter": "^0.21.0",
     "tree-sitter-typlet": "workspace:*",
     "zx": "^7.2.3"

@@ -1,7 +1,7 @@
-import { Scope } from "../symbol-table.js";
 import { SyntaxNode } from "tree-sitter";
+import { Env } from "./env.js";
 
-export type Visitor<T> = (env: Scope, node: SyntaxNode) => T;
+export type Visitor<T> = (env: Env, node: SyntaxNode) => T;
 
 export type CodegenOutput = { js?: string; dts?: string };
 

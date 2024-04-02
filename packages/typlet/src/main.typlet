@@ -1,0 +1,5 @@
+import "zx": { fs, glob }
+import "./lib/source-file.typlet": { SourceFile }
+import "./lib/compiler.typlet": { TypletCompiler }
+
+mut config = 4

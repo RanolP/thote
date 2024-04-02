@@ -25,7 +25,9 @@ let { a, b as c } = { a: 1, b: 2 }
 
 // Function
 fn double(x: int) => 2 * x
-let halven = fn(x: int) => x / 2 
+let halven = fn(x: int) => x / 2
+let halven_generic = fn{T: Div<i32>}(x: T) => x / 2
+//           same as fn{Div<T, i32>}(x: T) => x / 2
 
 pi == double(halven(pi))
 
