@@ -69,6 +69,7 @@ module.exports = grammar({
 				$.decl_tuple_type,
 				$.decl_struct_type,
 				$.decl_effect,
+				$.decl_fn,
 			),
 		decl_unit_type: ($) => seq("type", field("name", $.identifier)),
 		decl_tuple_type: ($) =>
@@ -106,6 +107,31 @@ module.exports = grammar({
 				optional(field("type_params", $.type_parameters)),
 				"{",
 				"}",
+			),
+		decl_fn: ($) =>
+			seq(
+				optional(field("extern", "extern")),
+				"fn",
+				field("name", $.identifier),
+				"(",
+				optional(
+					seq(
+						field("params", $.fn_param),
+						repeat(seq(",", field("params", $.fn_param))),
+						optional(","),
+					),
+				),
+				")",
+				optional(seq("->", field("return", $.type))),
+				optional(seq("where") /**  @TODO */),
+				optional(seq("{", repeat(field("body", $.statement)), "}")),
+			),
+		fn_param: ($) =>
+			seq(
+				optional(field("mut", "mut")),
+				field("name", $.identifier),
+				":",
+				field("type", $.type),
 			),
 
 		// Expressions

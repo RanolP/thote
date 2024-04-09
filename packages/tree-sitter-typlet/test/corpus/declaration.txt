@@ -57,3 +57,27 @@ type Spanned<T>(T, Span)
     (type (identifier))
     (type (identifier))
   ))
+
+============================================
+Function
+============================================
+
+extern fn alert(msg: String)
+fn add(lhs: i32, rhs: i32) -> i32 { lhs + rhs }
+
+---
+
+(program
+  (decl_fn
+    (identifier)
+    (fn_param (identifier) (type (identifier)))
+  )
+  (decl_fn
+    (identifier)
+    (fn_param (identifier) (type (identifier)))
+    (fn_param (identifier) (type (identifier)))
+    (type (identifier))
+    (expression_statement
+      (binary_operation (name (identifier)) (name (identifier)))
+    )
+  ))

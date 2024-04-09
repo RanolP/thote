@@ -232,6 +232,98 @@
     }
   },
   {
+    "type": "decl_fn",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "binding_statement",
+            "named": true
+          },
+          {
+            "type": "decl_effect",
+            "named": true
+          },
+          {
+            "type": "decl_fn",
+            "named": true
+          },
+          {
+            "type": "decl_struct_type",
+            "named": true
+          },
+          {
+            "type": "decl_tuple_type",
+            "named": true
+          },
+          {
+            "type": "decl_unit_type",
+            "named": true
+          },
+          {
+            "type": "escape_hatch",
+            "named": true
+          },
+          {
+            "type": "export_statement",
+            "named": true
+          },
+          {
+            "type": "expression_statement",
+            "named": true
+          },
+          {
+            "type": "import_statement",
+            "named": true
+          }
+        ]
+      },
+      "extern": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "extern",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "params": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "fn_param",
+            "named": true
+          }
+        ]
+      },
+      "return": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "decl_struct_type",
     "named": true,
     "fields": {
@@ -348,6 +440,10 @@
             "named": true
           },
           {
+            "type": "decl_fn",
+            "named": true
+          },
+          {
             "type": "decl_struct_type",
             "named": true
           },
@@ -404,6 +500,42 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "fn_param",
+    "named": true,
+    "fields": {
+      "mut": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "mut",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -513,6 +645,10 @@
         },
         {
           "type": "decl_effect",
+          "named": true
+        },
+        {
+          "type": "decl_fn",
           "named": true
         },
         {
@@ -670,6 +806,10 @@
     "named": false
   },
   {
+    "type": "->",
+    "named": false
+  },
+  {
     "type": "/",
     "named": false
   },
@@ -730,8 +870,16 @@
     "named": false
   },
   {
+    "type": "extern",
+    "named": false
+  },
+  {
     "type": "float",
     "named": true
+  },
+  {
+    "type": "fn",
+    "named": false
   },
   {
     "type": "identifier",
@@ -772,6 +920,10 @@
   {
     "type": "unit_relative_length",
     "named": true
+  },
+  {
+    "type": "where",
+    "named": false
   },
   {
     "type": "{",
