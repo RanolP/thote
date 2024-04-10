@@ -1,0 +1,1 @@
+interface ParseResult_EffectHandler {}

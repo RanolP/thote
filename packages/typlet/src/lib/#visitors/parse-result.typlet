@@ -1,0 +1,4 @@
+effect ParseResult {
+    fn unreachable() -> never
+    fn notImplemented() -> never
+}

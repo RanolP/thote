@@ -2,16 +2,49 @@
 Effect
 ============================================
 
-effect Option {}
-effect Result<E> {}
+effect Option {
+  fn none() -> never
+}
+effect Result<E> {
+  fn err(e: E) -> never
+}
+effect IO {
+  fn read(buf: Array<u8>, len: usize)
+  fn write(buf: Array<u8>, begin: usize, len: usize)
+}
 
 ---
 
 (program
-  (decl_effect (identifier))
+  (decl_effect
+    (identifier)
+    (fn_signature
+      (identifier)
+      (type (identifier))
+    )
+  )
   (decl_effect
     (identifier)
     (type_parameters (name (identifier)))
+    (fn_signature
+      (identifier)
+      (fn_param (identifier) (type (identifier)))
+      (type (identifier))
+    )
+  )
+  (decl_effect
+    (identifier)
+    (fn_signature
+      (identifier)
+      (fn_param (identifier) (type (identifier) (type_parameters (name (identifier)))))
+      (fn_param (identifier) (type (identifier)))
+    )
+    (fn_signature
+      (identifier)
+      (fn_param (identifier) (type (identifier) (type_parameters (name (identifier)))))
+      (fn_param (identifier) (type (identifier)))
+      (fn_param (identifier) (type (identifier)))
+    )
   ))
 
 ============================================
@@ -62,6 +95,7 @@ type Spanned<T>(T, Span)
 Function
 ============================================
 
+fn init()
 extern fn alert(msg: String)
 fn add(lhs: i32, rhs: i32) -> i32 { lhs + rhs }
 
@@ -69,14 +103,23 @@ fn add(lhs: i32, rhs: i32) -> i32 { lhs + rhs }
 
 (program
   (decl_fn
-    (identifier)
-    (fn_param (identifier) (type (identifier)))
+    (fn_signature 
+      (identifier)
+    )
   )
   (decl_fn
-    (identifier)
-    (fn_param (identifier) (type (identifier)))
-    (fn_param (identifier) (type (identifier)))
-    (type (identifier))
+    (fn_signature 
+      (identifier)
+      (fn_param (identifier) (type (identifier)))
+    )
+  )
+  (decl_fn
+    (fn_signature
+      (identifier)
+      (fn_param (identifier) (type (identifier)))
+      (fn_param (identifier) (type (identifier)))
+      (type (identifier))
+    )
     (expression_statement
       (binary_operation (name (identifier)) (name (identifier)))
     )

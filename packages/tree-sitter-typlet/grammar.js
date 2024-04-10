@@ -106,11 +106,17 @@ module.exports = grammar({
 				field("name", $.identifier),
 				optional(field("type_params", $.type_parameters)),
 				"{",
+				repeat($.fn_signature),
 				"}",
 			),
 		decl_fn: ($) =>
 			seq(
 				optional(field("extern", "extern")),
+				field("signature", $.fn_signature),
+				optional(seq("{", repeat(field("body", $.statement)), "}")),
+			),
+		fn_signature: ($) =>
+			seq(
 				"fn",
 				field("name", $.identifier),
 				"(",
@@ -124,7 +130,6 @@ module.exports = grammar({
 				")",
 				optional(seq("->", field("return", $.type))),
 				optional(seq("where") /**  @TODO */),
-				optional(seq("{", repeat(field("body", $.statement)), "}")),
 			),
 		fn_param: ($) =>
 			seq(
