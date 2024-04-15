@@ -5,7 +5,7 @@ import { visitTypeParameters } from "../frag/type_parameters.js";
 /**
  * @satisfies {import('../../types.js').CodegenVisitor}
  */
-export const visitDeclStructType = (env, node, shouldExport = false) => {
+export const visitDeclStructType = (env, node, shouldExport = true) => {
 	const $export = shouldExport ? "export " : "";
 	const nameNode = node.childForFieldName("name");
 	if (nameNode == null) throw new Unreachable();

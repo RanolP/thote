@@ -6,7 +6,7 @@ import { visitDeclTupleType } from "./decl-tuple-type.js";
 /**
  * @satisfies {import('../../types.js').CodegenVisitor}
  */
-export const visitDeclaration = (env, node, shouldExport = false) => {
+export const visitDeclaration = (env, node, shouldExport = true) => {
 	switch (node.type) {
 		case "decl_tuple_type":
 			return visitDeclTupleType(env, node, shouldExport);

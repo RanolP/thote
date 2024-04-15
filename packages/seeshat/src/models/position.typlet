@@ -1,4 +1,4 @@
-export type Offset(number)
+type Offset(number)
 
 type Span { begin: Offset, end: Offset }
 

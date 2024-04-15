@@ -5,7 +5,7 @@ import { visitTypeParameters } from "../frag/type_parameters.js";
 /**
  * @satisfies {import('../../types.js').CodegenVisitor}
  */
-export const visitDeclEffect = (env, node, shouldExport = false) => {
+export const visitDeclEffect = (env, node, shouldExport = true) => {
 	const $export = shouldExport ? "export " : "";
 	const nameNode = node.childForFieldName("name");
 	if (nameNode == null) throw new Unreachable();
@@ -16,7 +16,7 @@ export const visitDeclEffect = (env, node, shouldExport = false) => {
 
 	return {
 		dts: dedent`
-      ${$export}interface ${$name}_EffectHandler${$typeParams} {}
+      ${$export}interface ${$name}_Capability${$typeParams} {}
     `,
 		js: dedent`
     `,

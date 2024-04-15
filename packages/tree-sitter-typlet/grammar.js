@@ -11,6 +11,7 @@ module.exports = grammar({
 
 	precedences: ($) => [
 		[$.unit_absolute_length, $.unit_relative_length, $.float, $.integer],
+		[$.if_expression, $.binary_operation],
 	],
 
 	rules: {
@@ -20,41 +21,42 @@ module.exports = grammar({
 		shebang: ($) => /#!.*/,
 
 		statement: ($) =>
-			choice(
-				$.escape_hatch,
-				$.import_statement,
-				$.export_statement,
-				$.declaration,
-				$.binding_statement,
-				$.expression_statement,
+			seq(
+				choice(
+					$.escape_hatch,
+					$.use_statement,
+					$.declaration,
+					$.binding_statement,
+					$.expression_statement,
+				),
+				$._separator,
 			),
 		escape_hatch: ($) =>
 			seq("__ESCAPE_JS```", field("source", $.escape_hatch_source), "```"),
 		escape_hatch_source: ($) => /[^`]*/,
 
-		import_statement: ($) =>
+		use_statement: ($) =>
 			seq(
-				"import",
+				"use",
 				field("path", $.string),
 				choice(
 					seq("as", field("whole", $.identifier)),
-					seq(":", field("part", $.import_part_list)),
+					seq(":", field("part", $.use_part_list)),
 				),
 			),
-		import_part_list: ($) =>
+		use_part_list: ($) =>
 			seq(
 				"{",
-				field("list", $.import_part),
-				repeat(seq(",", field("list", $.import_part))),
+				field("list", $.use_part),
+				repeat(seq(",", field("list", $.use_part))),
 				optional(","),
 				"}",
 			),
-		import_part: ($) =>
+		use_part: ($) =>
 			seq(
 				field("original", $.identifier),
 				optional(seq("as", field("alias", $.identifier))),
 			),
-		export_statement: ($) => seq("export", field("declaration", $.declaration)),
 		binding_statement: ($) =>
 			seq(
 				field("kind", choice("let", "mut")),
@@ -110,10 +112,12 @@ module.exports = grammar({
 				"}",
 			),
 		decl_fn: ($) =>
-			seq(
-				optional(field("extern", "extern")),
-				field("signature", $.fn_signature),
-				optional(seq("{", repeat(field("body", $.statement)), "}")),
+			choice(
+				seq(
+					optional(field("extern", "extern")),
+					field("signature", $.fn_signature),
+				),
+				seq(field("signature", $.fn_signature), field("body", $.block)),
 			),
 		fn_signature: ($) =>
 			seq(
@@ -144,6 +148,7 @@ module.exports = grammar({
 		expression_statement: ($) => $.expression,
 		expression: ($) =>
 			choice(
+				$._parenthesis,
 				$.binary_operation,
 				$.unit_absolute_length,
 				$.unit_relative_length,
@@ -152,6 +157,19 @@ module.exports = grammar({
 				$.boolean,
 				$.string,
 				$.name,
+				$.if_expression,
+				$.block,
+			),
+
+		_parenthesis: ($) => seq("(", $.expression, ")"),
+		if_expression: ($) =>
+			prec.right(
+				seq(
+					"if",
+					field("condition", $.expression),
+					field("then", choice($.block, seq("then", $.expression))),
+					optional(seq("else", field("else", choice($.block, $.expression)))),
+				),
 			),
 
 		binary_operation: ($) => {
@@ -220,7 +238,18 @@ module.exports = grammar({
 		type_constraint: ($) =>
 			choice(seq(field("name", $.name), ":", field("constraint", $.type))),
 		identifier: ($) => token(/[\p{ID_Start}][\p{ID_Continue}]*/),
+		block: ($) =>
+			seq(
+				"{",
+				repeat(field("statements", $.statement)),
+				optional(field("expression", $.expression)),
+				"}",
+			),
 		_word: ($) => token(/[a-zA-Z]+|_/),
+
+		_separator: ($) => choice(";", $._vertical_space),
+		_vertical_space: ($) =>
+			/\r\n|[\n\u{000B}\u{000C}\r\u{0085}\u{2028}\u{2029}]/,
 	},
 
 	word: ($) => $._word,

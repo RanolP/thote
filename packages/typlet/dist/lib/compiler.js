@@ -52,7 +52,7 @@ export class TypletCompiler {
 	async compile() {
 		for (const file of this.#sources) {
 			const env = new Env(file, Scope.make({ global: null, parent: null }));
-			const ast = this.#parser.parse(file.content);
+			const ast = this.#parser.parse(file.content + "\n");
 			try {
 				Check.visitRootNode(env, ast.rootNode);
 				const generated = Codegen.visitRootNode(env, ast.rootNode);

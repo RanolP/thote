@@ -1,41 +1,41 @@
 ============================================
-Import
+Use
 ============================================
 
-import "node:fs" as fs
-import "./file.typlet": { A }
-import "./file.typlet": { A, }
-import "./file.typlet": { A, B, }
-import "./file.typlet": { A, B, C }
+use "node:fs" as fs
+use "./file.typlet": { A }
+use "./file.typlet": { A, }
+use "./file.typlet": { A, B, }
+use "./file.typlet": { A, B, C }
 
 ---
 
 (program
-  (import_statement (string) (identifier))
-  (import_statement
+  (use_statement (string) (identifier))
+  (use_statement
     (string)
-    (import_part_list
-      (import_part (identifier))
+    (use_part_list
+      (use_part (identifier))
     )
   )
-  (import_statement
+  (use_statement
     (string)
-    (import_part_list
-      (import_part (identifier))
+    (use_part_list
+      (use_part (identifier))
     )
   )
-  (import_statement
+  (use_statement
     (string)
-    (import_part_list
-      (import_part (identifier))
-      (import_part (identifier))
+    (use_part_list
+      (use_part (identifier))
+      (use_part (identifier))
     )
   )
-  (import_statement
+  (use_statement
     (string)
-    (import_part_list
-      (import_part (identifier))
-      (import_part (identifier))
-      (import_part (identifier))
+    (use_part_list
+      (use_part (identifier))
+      (use_part (identifier))
+      (use_part (identifier))
     )
   ))

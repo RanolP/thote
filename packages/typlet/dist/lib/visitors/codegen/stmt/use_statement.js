@@ -3,7 +3,7 @@ import { Unreachable } from "../../effects.js";
 /**
  * @type {import("../../types.js").CodegenVisitor}
  */
-export function visitImportStatement(env, node) {
+export function visitUseStatement(env, node) {
 	const pathNode = node.childForFieldName("path");
 	if (pathNode == null) throw new Unreachable();
 	let $path = pathNode.text;

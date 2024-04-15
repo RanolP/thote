@@ -1,1 +1,1 @@
-interface ParseResult_EffectHandler {}
+export interface ParseResult_EffectHandler {}

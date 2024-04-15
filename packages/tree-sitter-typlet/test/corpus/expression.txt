@@ -24,3 +24,49 @@ Binary Operation
       (name (identifier))
     )
   ))
+
+============================================
+If Expression
+============================================
+
+if a then b else c
+if a { 
+  b
+} else {
+  c
+}
+(
+  if a then
+    if b then c
+    else d
+  else e
+)
+
+---
+
+(program
+  (expression_statement
+    (if_expression
+      (name (identifier))
+      (name (identifier))
+      (name (identifier))
+    )
+  )
+  (expression_statement
+    (if_expression
+      (name (identifier))
+      (block (expression_statement (name (identifier))))
+      (block (expression_statement (name (identifier))))
+    )
+  )
+  (expression_statement
+    (if_expression
+      (name (identifier))
+      (if_expression
+        (name (identifier))
+        (name (identifier))
+        (name (identifier))
+      )
+      (name (identifier))
+    )
+  ))
